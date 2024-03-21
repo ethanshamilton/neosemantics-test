@@ -1,0 +1,262 @@
+@prefix : <http://www.webmd.net/DemoGraph/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.webmd.net/DemoGraph/> .
+
+<http://www.webmd.net/DemoGraph/> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.w3.org/2004/02/skos/core#broader
+<http://www.w3.org/2004/02/skos/core#broader> rdf:type owl:ObjectProperty ;
+                                              rdfs:domain :Subject ;
+                                              rdfs:range :Subject .
+
+
+###  http://www.w3.org/2004/02/skos/core#narrower
+<http://www.w3.org/2004/02/skos/core#narrower> rdf:type owl:ObjectProperty ;
+                                               rdfs:domain :Subject ;
+                                               rdfs:range :Subject .
+
+
+###  http://www.w3.org/2004/02/skos/core#related
+<http://www.w3.org/2004/02/skos/core#related> rdf:type owl:ObjectProperty ;
+                                              rdfs:domain :Subject ;
+                                              rdfs:range :Subject .
+
+
+###  http://www.webmd.net/DemoGraph/hasConditionCode
+:hasConditionCode rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Content_Item ;
+                  rdfs:range :Condition_Code .
+
+
+###  http://www.webmd.net/DemoGraph/hasMedicationCode
+:hasMedicationCode rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Content_Item ;
+                   rdfs:range :Medication_Code .
+
+
+###  http://www.webmd.net/DemoGraph/hasProcedureCode
+:hasProcedureCode rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Content_Item ;
+                  rdfs:range :Procedure_Code .
+
+
+###  http://www.webmd.net/DemoGraph/inSegment
+:inSegment rdf:type owl:ObjectProperty ;
+           rdfs:domain :Subject ;
+           rdfs:range :Content_Segment .
+
+
+###  http://www.webmd.net/DemoGraph/mapsTo
+:mapsTo rdf:type owl:ObjectProperty ;
+        rdfs:domain :Condition_Code ,
+                    :Medication_Code ,
+                    :Procedure_Code ;
+        rdfs:range :Subject .
+
+
+###  http://www.webmd.net/DemoGraph/segmentOf
+:segmentOf rdf:type owl:ObjectProperty ;
+           rdfs:domain :Content_Segment ;
+           rdfs:range :Content_Item .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.webmd.net/DemoGraph/Blurb
+:Blurb rdf:type owl:Class ;
+       rdfs:subClassOf :Content_Segment .
+
+
+###  http://www.webmd.net/DemoGraph/Collection
+:Collection rdf:type owl:Class ;
+            rdfs:subClassOf :Content_Segment .
+
+
+###  http://www.webmd.net/DemoGraph/Condition_Code
+:Condition_Code rdf:type owl:Class .
+
+
+###  http://www.webmd.net/DemoGraph/Content_Item
+:Content_Item rdf:type owl:Class .
+
+
+###  http://www.webmd.net/DemoGraph/Content_Segment
+:Content_Segment rdf:type owl:Class .
+
+
+###  http://www.webmd.net/DemoGraph/Keyword
+:Keyword rdf:type owl:Class ;
+         rdfs:subClassOf :Content_Segment .
+
+
+###  http://www.webmd.net/DemoGraph/Medication_Code
+:Medication_Code rdf:type owl:Class .
+
+
+###  http://www.webmd.net/DemoGraph/Procedure_Code
+:Procedure_Code rdf:type owl:Class .
+
+
+###  http://www.webmd.net/DemoGraph/Service_Line
+:Service_Line rdf:type owl:Class ;
+              rdfs:subClassOf :Content_Segment .
+
+
+###  http://www.webmd.net/DemoGraph/Source
+:Source rdf:type owl:Class ;
+        rdfs:subClassOf :Content_Segment .
+
+
+###  http://www.webmd.net/DemoGraph/Subject
+:Subject rdf:type owl:Class .
+
+
+###  http://www.webmd.net/DemoGraph/Text
+:Text rdf:type owl:Class ;
+      rdfs:subClassOf :Content_Segment .
+
+
+###  http://www.webmd.net/DemoGraph/Title
+:Title rdf:type owl:Class ;
+       rdfs:subClassOf :Content_Segment .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://purl.bioontology.org/ontology/RXNORM/253182
+<http://purl.bioontology.org/ontology/RXNORM/253182> rdf:type owl:NamedIndividual ,
+                                                              :Medication_Code ;
+                                                     :mapsTo :Insulin ;
+                                                     rdfs:label "Insulin" .
+
+
+###  http://www.webmd.net/DemoGraph/Diabetes
+:Diabetes rdf:type owl:NamedIndividual ,
+                   :Subject ;
+          <http://www.w3.org/2004/02/skos/core#broader> :Endocrinology ;
+          <http://www.w3.org/2004/02/skos/core#narrower> :Type_1_Diabetes ,
+                                                         :Type_2_Diabetes ;
+          :inSegment :Text_1 ,
+                     :Title_2 .
+
+
+###  http://www.webmd.net/DemoGraph/E10
+:E10 rdf:type owl:NamedIndividual ,
+              :Condition_Code ;
+     :mapsTo :Type_1_Diabetes ;
+     rdfs:comment "Type 1 diabetes mellitus without complications" ;
+     rdfs:label "E10" .
+
+
+###  http://www.webmd.net/DemoGraph/Endocrinology
+:Endocrinology rdf:type owl:NamedIndividual ,
+                        :Subject ;
+               <http://www.w3.org/2004/02/skos/core#narrower> :Diabetes ;
+               :inSegment :Text_3 ,
+                          :Title_3 .
+
+
+###  http://www.webmd.net/DemoGraph/Example_Content_Item_1
+:Example_Content_Item_1 rdf:type owl:NamedIndividual ,
+                                 :Content_Item ;
+                        :hasMedicationCode <http://purl.bioontology.org/ontology/RXNORM/253182> ;
+                        rdfs:label "Example Content Item 1" .
+
+
+###  http://www.webmd.net/DemoGraph/Example_Content_Item_2
+:Example_Content_Item_2 rdf:type owl:NamedIndividual ,
+                                 :Content_Item ;
+                        :hasConditionCode :E10 ;
+                        rdfs:label "Example Content Item 2" .
+
+
+###  http://www.webmd.net/DemoGraph/Example_Content_Item_3
+:Example_Content_Item_3 rdf:type owl:NamedIndividual ,
+                                 :Content_Item ;
+                        rdfs:label "Example Content Item 3" .
+
+
+###  http://www.webmd.net/DemoGraph/Insulin
+:Insulin rdf:type owl:NamedIndividual ,
+                  :Subject ;
+         <http://www.w3.org/2004/02/skos/core#broader> :Diabetes ;
+         <http://www.w3.org/2004/02/skos/core#related> :Type_1_Diabetes ,
+                                                       :Type_2_Diabetes ;
+         :inSegment :Text_2 ,
+                    :Title_2 ;
+         rdfs:label "Insulin" .
+
+
+###  http://www.webmd.net/DemoGraph/Text_1
+:Text_1 rdf:type owl:NamedIndividual ,
+                 :Text ;
+        :segmentOf :Example_Content_Item_1 ;
+        rdfs:label "<body><h2>Once-a-Week Insulin for Type 2 Diabetes Shows Promise in Early Trial</h2><p>TUESDAY, Sept. 22, 2020 (HealthDay News) -- Type 2 diabetes can be tough to control without medication. But for some people, the thought of daily shots makes them delay or avoid starting insulin therapy.</p><p>Now, new research offers some hope for those insulin avoiders -- a once-a-week insulin injection may someday replace daily shots. </p><p>A phase 2 trial compared the new weekly insulin, called icodec, to the commonly used insulin glargine (Lantus, Basaglar), and found the new insulin led to a similar reduction in blood sugar levels. The weekly insulin also had a similar safety profile to daily insulin glargine. </p><p>\\\"This is the first once-a-week injectable insulin, and this study suggests it's as effective as taking insulin daily. If it does well through scrutiny in phase 3 trials, it could make life easier for people with type 2 diabetes,\\\" explained Dr. Robert Gabbay, chief science and medical officer for the American Diabetes Association. </p><p>\\\"Getting people to start insulin is often a challenge, but if you only have to do it once a week, that may help,\\\" he added.</p><p>Once people get over the hurdle of starting weekly injections, Gabbay said, they'll likely \\\"be more adherent, have better blood sugar control and then fewer complications.\\\" </p><p>The study was funded by icodec's manufacturer, Novo Nordisk in Denmark. <i>HealthDay</i> reached out to the study researchers for comment, but they were unavailable. </p><p>Insulin is a hormone that helps the body process sugars from foods. Insulin ushers sugar from the blood into the body's cells, where it can be used for fuel. </p><p>People with type 2 diabetes usually don't use insulin efficiently, and they may not make enough insulin to keep up with the body's demands. That's when people with type 2 diabetes often need to start taking insulin. (In people with type 1 diabetes, the immune system mistakenly attacks healthy insulin-producing cells, destroying most of them. People with type 1 diabetes have no choice but to take insulin by injection or via an insulin pump.) </p><p>The latest study included nearly 250 people with type 2 diabetes, aged 18 to 75. None had received long-term insulin therapy before the trial. </p><p>The participants' diabetes was considered inadequately controlled, with A1Cs of 7% to 9.5%. A1C is a measure that estimates blood sugar levels over two months or so. A1C goals vary by individual, but often the goal is to be under 7%. </p><p>During the six-month trial, half of the participants were randomly assigned to take weekly injections of icodec. The remaining volunteers took insulin glargine daily. </p><p>By the end of the trial, people taking icodec saw a 1.33 percentage point drop in their A1C. The insulin glargine group dropped by 1.15 percentage points. Both groups had average A1Cs under 7% after starting insulin therapy. </p><p>One concern with any type of insulin therapy is low blood sugar (hypoglycemia). Taking insulin is a balancing act. Too little insulin and your blood sugar levels stay too high, which can eventually lead to complications if that happens regularly. Too much insulin can cause your blood sugar to drop to dangerous levels that can make you feel awful, and lead to unconsciousness and even death if left untreated. </p><p>The two types of insulin had similar levels of severe hypoglycemic events. Most of the adverse events in this trial were mild, however. </p><p>Dr. Akankasha Goyal, an endocrinologist at NYU Langone Health in New York City, said, \\\"This is a very promising, innovative treatment. The insulin gradually releases over seven days. So far, the efficacy and safety are similar between icodec and insulin glargine.\\\" </p><p>Goyal added, \\\"Right now, insulin is a daily injection and we have a lot of resistance toward it. Icodec is more convenient and the once-a-week injection is a selling point.\\\" </p><p>Both Gabbay and Goyal said they can envision multiple groups that could be helped by a weekly insulin. One group, Gabbay noted, is older teens and young adults who have unpredictable lifestyles and might miss taking a daily insulin around the same time every day. </p><p>Another is elderly patients -- whether they live on their own, have visiting nurse services or live in a nursing home. </p><p>\\\"Making insulin simpler for people facing physical or cognitive challenges who are cared for by another person is potentially a benefit of weekly insulin. The chance for an error is less if medication is given once a week rather than seven times,\\\" Gabbay explained. </p><p>Goyal said family or friends often assist her elderly patients, which can be tough if they need daily insulin. She said weekly insulin could certainly help in that situation. </p><p>Novo Nordisk hopes to start its phase 3 trials of icodec later this year. </p><p>If all goes well in the phase 3 trials, Goyal and Gabbay both expect the drug will eventually be available to people with both type 1 and type 2 diabetes. </p><p>The report, by Dr. Julio Rosenstock of the Dallas Diabetes Research Center at Medical City in Dallas, and colleagues was published Sept. 22 in the <i>New England Journal of Medicine</i>.</p><p><b>More information</b></p><p>Learn more about insulin from the <a href=\\\"https://www.diabetes.org/diabetes/medication-management/insulin-other-injectables/insulin-basics\\\">American Diabetes Association</a>.</p><p>SOURCES: Robert Gabbay, MD, PhD, chief science and medical officer, American Diabetes Association; Akankasha Goyal, MD, endocrinologist, NYU Langone Health System, and clinical assistant professor, medicine, NYU Grossman School of Medicine, New York City; <i>New England Journal of Medicine</i>, Sept. 22, 2020</p></body>" .
+
+
+###  http://www.webmd.net/DemoGraph/Text_2
+:Text_2 rdf:type owl:NamedIndividual ,
+                 :Text ;
+        :segmentOf :Example_Content_Item_2 ;
+        rdfs:label "<body><h2>Patients With Diabetes Need More Counseling on Low Blood Sugar</h2><p>SUNDAY, Feb. 7, 2021 (HealthDay News) -- Doctors need to do a better job of discussing low blood sugar with patients who take high-risk diabetes medications such as insulin, researchers say.</p><p>Low blood sugar (hypoglycemia) is the most common serious side effect of diabetes treatment. Severe cases can lead to falls, emergency department visits, and may increase the risk of stroke and death.</p><p>\\\"For patients to have safe diabetes treatment, there needs to be open communication between them and their health care provider about medication side effects, especially hypoglycemia,\\\" said study leader Dr. Scott Pilla. He is assistant professor of medicine at Johns Hopkins University School of Medicine, in Baltimore.</p><p>The study was published recently in the <em>Journal of General Internal Medicine</em>. </p><p>According to the researchers, 12% of diabetes patients who participated in a 2018 survey said they had had severe hypoglycemia within the previous year.</p><p>In the new study, Pilla's team looked at 83 primary care visits by 33 patients with diabetes who took insulin or sulfonylureas, such as glipizide (Glucotrol) and glyburide (Glynase).</p><p>Low blood sugar and how to prevent it came up in less than one-quarter of those visits, the researchers found.</p><p>Even though patients were concerned about hypoglycemia, doctors rarely checked how often it occurred, its severity or how it affected patients' quality of life, according to the study authors.</p><p>\\\"For example, we found in our study that clinicians almost never counseled against driving a car if a patient thinks his or her blood sugar is low or may become low,\\\" Pilla said in a Hopkins news release. \\\"This is an important discussion to have because low blood sugar could cause a person to think unclearly and have an accident.\\\"</p><p>Primary care clinicians must make hypoglycemia counseling a priority for patients taking high-risk diabetes medications, he said. But it's also important for patients to raise the topic, he added.</p><p>\\\"Primary care clinicians should work together with patients to figure out how to best prevent low blood sugar episodes and choose the safest diabetes treatment,\\\" Pilla said.</p><p><strong>More information</strong></p><p>The U.S. National Institute of Diabetes and Digestive and Kidney Diseases has more on <a href=\\\"https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/low-blood-glucose-hypoglycemia\\\">hypoglycemia</a>.</p><div class=\\\"horizontal-rule\\\" /><p>SOURCE: Johns Hopkins Medicine, news release, Feb. 2, 2021<br /></p></body>" .
+
+
+###  http://www.webmd.net/DemoGraph/Text_3
+:Text_3 rdf:type owl:NamedIndividual ,
+                 :Text ;
+        :segmentOf :Example_Content_Item_3 ;
+        rdfs:label "<body><h2>Which Blood Sugar Meds Work Best Against Type 2 Diabetes?</h2><p>TUESDAY, June 29, 2021 (HealthDay News) -- You have type 2 diabetes, and you are already taking an old standby drug, metformin. But you still need help controlling your blood sugar levels. Which medication would be the best?</p><p>New research pitted several diabetes drugs against each other and came up with an answer: The diabetes drugs Lantus and Victoza were better at controlling blood sugar over time than Amaryl or Januvia.</p><p>\\\"We've known that type 2 diabetes is a progressive disease, and these medications, in general, do not reduce or obliterate progression, and that the ability of these medications to slow the rise in glucose varies amongst them,\\\" explained Dr. Steven Kahn, a professor of medicine, metabolism, endocrinology and nutrition at the University of Washington in Seattle. He is a member of the executive committee that oversaw the trial.</p><p>The goal was to see which of these drugs kept average blood sugar levels in the recommended target range, at an A1C level of less than 7%.  A1C blood tests are a standard means of gauging long-term blood sugar control.</p><p>\\\"When we look at the rise in A1C over time, it's clear that there are initial beneficial impacts of one drug over the other, but they tend to fail at a very similar rate,\\\" Kahn said. \\\"So, beyond the first couple of years, all the failure seems to be occurring at the same rate, but overall failure was less with Lantus and Victoza.\\\"</p><p>Lantus (insulin glargine) and Victoza (liraglutide) are both injectable drugs, while Amaryl (glimepiride) and Januvia (sitagliptin) are pills. </p><p>The study, which was funded by the U.S. National Institutes of Health, included more than 5,000 people with type 2 diabetes, average age 57. The participants, 20% of whom were Black and 18% of whom were Hispanic, were randomly assigned to one of the four drugs along with metformin in the trial, which ran an average of four years. </p><p>The researchers found that Lantus and Victoza were the most effective in keeping A1C levels under 7%, while Amaryl or Januvia had the lowest effect and higher odds of letting A1C levels rise above 7%.</p><p>The results were similar across gender, race, ethnicity and age group. </p><p>Other findings included:</p><ul><li><p>Patients given Victoza and Januvia were more likely to lose weight than those taking Amaryl. Those taking Lantus maintained a stable weight. </p></li><li><p>Victoza caused more gastrointestinal side effects, such as nausea, abdominal pain and diarrhea, than the other drugs. Amaryl was linked to a higher risk for low blood sugar than the other drugs.</p></li><li><p>Victoza was linked to a lower risk of heart attack, stroke and other heart and vascular complications than the other drugs.</p></li></ul><p>Dr. Caroline Messer, an endocrinologist at Lenox Hill Hospital in New York City, said the study confirms that these medications are appropriate and should be used as a second-line treatment after metformin, or as a first-line treatment if metformin isn't tolerated. </p><p>Messer noted that although some of the newer drugs are expensive, they are covered by most health insurance plans. </p><p>\\\"I think the only disservice of the study is that I don't want people to start thinking that you should be using insulin [Lantus] as a second-line treatment,\\\" she explained. \\\"I think that it does a disservice, because if people are reaching for insulin too quickly because of this trial, that would be a shame.\\\"</p><p>The findings were presented Monday at the virtual annual meeting of the American Diabetes Association. Findings presented at medical meetings should be considered preliminary until published in a peer-reviewed journal.</p><p>Dr. Joel Zonszein, an emeritus professor of medicine at Albert Einstein College of Medicine in New York City, was not surprised by the findings, but thinks the trial is outdated. </p><p>\\\"It certainly proves that Victoza and Lantus are better medications to improve blood sugar control when metformin is not enough,\\\" he said.</p><p>The problem with the study is that it didn't include other drugs that were approved by the U.S. Food and Drug Administration when the study began, so there may be more effective drug combinations that are yet to be tested, Zonszein said.</p><p>\\\"We need to know what the best combination is for treatment of diabetes early in the disease and not to use the antiquated step-up approach \\u2014 what to do when the medication fails? We have an excellent choice of medications, and there is no reason to have individuals with diabetes not well-treated,\\\" he added.</p><p>And when managing diabetes, treating blood sugar is not the only consideration, Zonszein noted. </p><p>\\\"We treat each patient and individualize regimens accordingly. Treatment includes obesity, high cholesterol and hypertension, among others. We aim to improve and prolong a good quality of life,\\\" he said. \\\"For instance, the weight loss found with Victoza is important for many, and not found with the other agents in the study. Victoza's gastrointestinal side effects are also well-known, and these are decreased when using newer weekly drugs.\\\" </p><p>Although blood sugar levels are important, treatment aims to avoid or delay the complications of diabetes, Zonszein said.</p><p>Because stroke and heart attack are the common causes of death among diabetes patients, treatment should include medications that prevent heart attack, stroke and other heart and vascular complications, as well as kidney disease. </p><p>\\\"The... trial is therefore outdated, and doesn't help people or their health care providers to make decisions in 2021 \\u2014 the train has left the station,\\\" Zonszein said. </p><p>\\\"Treatment of diabetes has shifted towards individualizing therapy, using proper medications from the get-go. We now use medications that do not cause low blood sugar or need frequent blood sugar checking. Certainly, we use medications that can help with weight loss and cause less cardiovascular complications,\\\" he explained. </p><p>Kahn said he is all for individualized treatment for type 2 diabetes. He also wishes that drug companies would do head-to-head trials of the newer drugs to determine the best combination treatment.</p><p><strong>More information</strong></p><p>For more on type 2 diabetes, head to the <a href=\\\"https://www.diabetes.org/diabetes/type-2\\\">American Diabetes Association</a>.</p><div class=\\\"horizontal-rule\\\" /><p>SOURCES: Steven Kahn, MD, professor, medicine, metabolism, endocrinology and nutrition, University of Washington, Seattle; Caroline Messer, MD, endocrinologist, Lenox Hill Hospital, New York City; Joel Zonszein, MD, emeritus professor, medicine, Albert Einstein College of Medicine, New York City; June 28, 2021, presentation virtual annual meeting, American Diabetes Association meeting<br /></p></body>" .
+
+
+###  http://www.webmd.net/DemoGraph/Title_1
+:Title_1 rdf:type owl:NamedIndividual ,
+                  :Title ;
+         :segmentOf :Example_Content_Item_1 ;
+         rdfs:label "Once-a-Week Insulin for Type 2 Diabetes Shows Promise in Early Trial" .
+
+
+###  http://www.webmd.net/DemoGraph/Title_2
+:Title_2 rdf:type owl:NamedIndividual ,
+                  :Title ;
+         :segmentOf :Example_Content_Item_2 ;
+         rdfs:label "Patients With Diabetes Need More Counseling on Low Blood Sugar" .
+
+
+###  http://www.webmd.net/DemoGraph/Title_3
+:Title_3 rdf:type owl:NamedIndividual ,
+                  :Title ;
+         :segmentOf :Example_Content_Item_3 ;
+         rdfs:label "Which Blood Sugar Meds Work Best Against Type 2 Diabetes?" .
+
+
+###  http://www.webmd.net/DemoGraph/Type_1_Diabetes
+:Type_1_Diabetes rdf:type owl:NamedIndividual ,
+                          :Subject ;
+                 <http://www.w3.org/2004/02/skos/core#broader> :Diabetes ;
+                 <http://www.w3.org/2004/02/skos/core#related> :Type_2_Diabetes ;
+                 :inSegment :Text_1 ,
+                            :Title_1 ;
+                 rdfs:label "Type 1 Diabetes" .
+
+
+###  http://www.webmd.net/DemoGraph/Type_2_Diabetes
+:Type_2_Diabetes rdf:type owl:NamedIndividual ,
+                          :Subject ;
+                 <http://www.w3.org/2004/02/skos/core#broader> :Diabetes ;
+                 <http://www.w3.org/2004/02/skos/core#related> :Type_1_Diabetes ;
+                 rdfs:label "Type 2 Diabetes" .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
